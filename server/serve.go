@@ -10,19 +10,23 @@ import (
 	"net/rpc"
 	"net/rpc/jsonrpc"
 	"sync"
+
+	"github.com/vulppine/byond-topic-go"
 )
 
 // State represents the current state of the server.
 // It contains a mutex, the raw JSON representing the
-// state, and the current status of the server.
+// state, and the current status of the server, as
+// well as the port that Dream Daemon is being hosted on.
 //
 // If the status changes from the last status that
 // was in the State when a new state was recieved,
 // the Dream Daemon listener will automatically
 // call Update() over the given RPC port.
 type State struct {
-	m sync.Mutex
-	raw []byte
+	m      sync.Mutex
+	raw    []byte
+	ddport int
 	Status int `json:"status"`
 }
 
@@ -33,7 +37,9 @@ func listenDD(port, rport int, rcall string, state *State) {
 	var r *rpc.Client
 	if rport != 0 {
 		r, err = jsonrpc.Dial("tcp", fmt.Sprintf(":%d", rport))
-		if err != nil { log.Println("error opening rpc port:", err) }
+		if err != nil {
+			log.Println("error opening rpc port:", err)
+		}
 	}
 
 	if err != nil {
@@ -95,7 +101,7 @@ func listenDD(port, rport int, rcall string, state *State) {
 //
 // enjoy the funny port number
 func serveJSON(state *State) {
-	if err := http.ListenAndServe(":3621", state) ; err != nil {
+	if err := http.ListenAndServe(":3621", state); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -108,6 +114,12 @@ func (s *State) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	if r.URL.Path != "/api/status" {
 		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	// hardcoded
+	if u, err := byondtopic.SendTopic(fmt.Sprintf(":%d", s.ddport), "update_rest"); u != "SUCCESS" && err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
