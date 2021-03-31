@@ -10,12 +10,12 @@ HTTP, or alternatively, sent as a remote procedure call.
 Building
 --------
 
-**Windows**
+### Windows
 
 You will require [TDM-GCC](https://jmeubank.github.io/tdm-gcc)
 to compile the Dream Daemon library.
 
-To compile the server, run `go build -o byond-rest.exe`.
+To compile the server, run `go build -o byond-rest.exe` in `server/`.
 
 To compile the library:
  - Install TDM-GCC from above.
@@ -24,14 +24,14 @@ To compile the library:
  - Run `go env -w GOARCH=386 CGO_ENABLED=1`.
  - Run `go build -o byond-socks.dll -tags netgo -buildmode=c-shared` in `library/`.
  
-### This isn't building on Windows.
+#### The library isn't building on Windows.
 
-Run `go mod init byond-socks` in your build directory. Make an issue otherwise
+Run `go mod init byond-socks` in `library/`. Make an issue otherwise
 if you've already done this.
 
-**Linux**
+### Linux
 
-To compile the server, run `go build -o byond-rest`.
+To compile the server, run `go build -o byond-rest` in `server/`.
 
 To compile the library, run `CGO_ENABLED=1 GOARCH=386 go build -o byond-socks.so -tags netgo -buildmode=c-shared ./` in `library/`
 
@@ -82,8 +82,8 @@ Why is this split into parts?
 
 I'm not very confident that this could be *only* a library.
 I already had some issues trying to use some Go stdlib functions while
-making the library included (net.Listen causes a crash, while
-net.ListenTCP does not). Perhaps someday (alternatively, you could
+making the library included (`net.Listen` causes a crash, while
+`net.ListenTCP` does not). Perhaps someday (alternatively, you could
 try to do this yourself if you really want)
 
 License
