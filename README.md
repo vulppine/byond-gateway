@@ -10,7 +10,7 @@ HTTP, or alternatively, sent as a remote procedure call.
 Building
 --------
 
-**Windows**
+###Windows
 
 You will require [TDM-GCC](https://jmeubank.github.io/tdm-gcc)
 to compile the Dream Daemon library.
@@ -24,12 +24,12 @@ To compile the library:
  - Run `go env -w GOARCH=386 CGO_ENABLED=1`.
  - Run `go build -o byond-socks.dll -tags netgo -buildmode=c-shared` in `library/`.
  
-### This isn't building on Windows.
+#### This isn't building on Windows.
 
 Run `go mod init byond-socks` in your build directory. Make an issue otherwise
 if you've already done this.
 
-**Linux**
+###Linux
 
 To compile the server, run `go build -o byond-rest`.
 
