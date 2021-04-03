@@ -1,7 +1,7 @@
 byond-rest
 ==========
 
-A REST server for BYOND's Dream Daemon.
+A gateway server for BYOND's Dream Daemon.
 
 Allows for transmission of an internal server state
 of any kind, and for this state to be served over
@@ -15,7 +15,7 @@ Building
 You will require [TDM-GCC](https://jmeubank.github.io/tdm-gcc)
 to compile the Dream Daemon library.
 
-To compile the server, run `go build -o byond-rest.exe` in `server/`.
+To compile the server, run `go build -o byond-gateway.exe` in `server/`.
 
 To compile the library:
  - Install TDM-GCC from above.
@@ -31,11 +31,11 @@ if you've already done this.
 
 ### Linux
 
-To compile the server, run `go build -o byond-rest` in `server/`.
+To compile the server, run `go build -o byond-gateway` in `server/`.
 
 To compile the library, run `CGO_ENABLED=1 GOARCH=386 go build -o byond-socks.so -tags netgo -buildmode=c-shared ./` in `library/`
 
-Where these will be located depended is the implementer's choice.
+Where these will be located is dependent on the implementer's choice.
 
 Usage
 -----
@@ -45,15 +45,15 @@ You can use this in a couple of ways.
 **Dynamically called from Dream Daemon**
 
     /proc/start_rest()
-        shell("[byond-rest executable]", "[port]", "[rpc_port]", "[rpc_call]")
+        shell("[byond-rest executable]", "[port]", "[world.port]", "[rpc_port]", "[rpc_call]")
 
 **Started separate from Dream Daemon**
 
-    BYOND_REST_PORT=[ port ]
-    BYOND_REST_RPC_PORT=[ rpc_port ]
-    BYOND_REST_RPC_CALL=[ rpc_call ]
+    BYOND_GATEWAY_PORT=[ port ]
+    BYOND_GATEWAY_RPC_PORT=[ rpc_port ]
+    BYOND_GATEWAY_RPC_CALL=[ rpc_call ]
 
-    byond-rest
+    byond-gateway
 
 After starting, you can send the server messages like so:
 
@@ -73,7 +73,7 @@ JSON RPC is used to make RPCs.
 
 Example code has been included in the `examples` folder. In there, you can find:
  - a Discord bot
- - an example implementation of byond-rest in DM
+ - an example implementation of byond-gateway in DM
 
 Using `examples/dm/byond-rest.dm` on a Windows system requires [byond-extools](https://github.com/MCHSL/extools).
 
