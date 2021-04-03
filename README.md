@@ -1,5 +1,5 @@
-byond-rest
-==========
+byond-gateway
+=============
 
 A gateway server for BYOND's Dream Daemon.
 
