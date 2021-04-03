@@ -49,6 +49,7 @@ You can use this in a couple of ways.
 
 **Started separate from Dream Daemon**
 
+    BYOND_PORT= [ world.port ]
     BYOND_GATEWAY_PORT=[ port ]
     BYOND_GATEWAY_RPC_PORT=[ rpc_port ]
     BYOND_GATEWAY_RPC_CALL=[ rpc_call ]

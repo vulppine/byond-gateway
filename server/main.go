@@ -15,7 +15,7 @@ func main() {
 	var err error
 
 	if len(os.Args) < 3 {
-		if p, d := os.Getenv("BYOND_REST_PORT"), os.Getenv("BYOND_PORT"); p != "" && d != "" {
+		if p, d := os.Getenv("BYOND_GATEWAY_PORT"), os.Getenv("BYOND_PORT"); p != "" && d != "" {
 			port, err = strconv.Atoi(p)
 			ddPort, err = strconv.Atoi(d)
 			if err != nil {
@@ -37,12 +37,12 @@ func main() {
 
 	// a 5 length arg list implies that the RPC function was included
 	if len(os.Args) != 5 {
-		if p := os.Getenv("BYOND_REST_RPC_PORT"); p != "" {
+		if p := os.Getenv("BYOND_GATEWAY_RPC_PORT"); p != "" {
 			rpcPort, err = strconv.Atoi(p)
 			if err != nil {
 				log.Fatal("an error occurred reading the bot port")
 			}
-			if c := os.Getenv("BYOND_REST_RPC_CALL"); c != "" {
+			if c := os.Getenv("BYOND_GATEWAY_RPC_CALL"); c != "" {
 				rpcCall = os.Getenv(c)
 			} else {
 				log.Println("warning: no RPC call supplied, but a RPC port was supplied")
