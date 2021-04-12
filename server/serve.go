@@ -34,16 +34,16 @@ func listenDD(port, rport int, rcall string, state *State) {
 	l, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	log.Printf("starting listener on port %d\n", port)
 
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	var r *rpc.Client
 	if rport != 0 {
 		r, err = jsonrpc.Dial("tcp", fmt.Sprintf(":%d", rport))
 		if err != nil {
 			log.Println("error opening rpc port:", err)
 		}
-	}
-
-	if err != nil {
-		log.Fatal(err)
 	}
 
 	for {
