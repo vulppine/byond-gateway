@@ -119,6 +119,7 @@ func (s *State) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// hardcoded
 	if u, err := byondtopic.SendTopic(fmt.Sprintf(":%d", s.ddport), "update_rest"); u != "SUCCESS" && err != nil {
+		log.Printf("Error occurred while sending BYOND topic")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

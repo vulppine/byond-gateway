@@ -65,6 +65,7 @@ func main() {
 	state := new(State)
 	state.ddport = ddPort
 
+	log.Printf("Starting gateway server (linked to the BYOND server on port %d)", ddPort)
 	go listenDD(port, rpcPort, rpcCall, state)
 	go serveJSON(state)
 
