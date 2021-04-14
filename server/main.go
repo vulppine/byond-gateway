@@ -72,4 +72,6 @@ func main() {
 	s := make(chan os.Signal, 1)
 	signal.Notify(s, os.Interrupt, os.Kill)
 	<-s
+
+	os.Exit(0)
 }
